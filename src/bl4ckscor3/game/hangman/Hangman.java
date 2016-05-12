@@ -32,7 +32,7 @@ public class Hangman
 	 */
 	private static void start()
 	{
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setUndecorated(true);
 		frame.setSize(size);
 		frame.setLocationRelativeTo(null);

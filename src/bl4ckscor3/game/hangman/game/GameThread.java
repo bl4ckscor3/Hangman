@@ -11,7 +11,6 @@ public class GameThread extends Thread implements Runnable
 	@Override
 	public void run()
 	{
-		int tick = 0;
 		int fps = 0;
 		int targetTps = 60;
 		double fpsTimer = System.currentTimeMillis();
@@ -29,7 +28,6 @@ public class GameThread extends Thread implements Runnable
 			
 			while(unprocessed >= 1)
 			{
-				tick++;
 				unprocessed--;
 			}
 			
@@ -48,9 +46,7 @@ public class GameThread extends Thread implements Runnable
 			if(System.currentTimeMillis() - fpsTimer >= 1000)
 			{
 				Hangman.getScreen().setFps(fps);
-				Hangman.getScreen().setTick(tick);
 				fps = 0;
-				tick = 0;
 				fpsTimer += 1000;
 			}
 		}
