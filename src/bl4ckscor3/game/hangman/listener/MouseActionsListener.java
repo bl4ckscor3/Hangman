@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import bl4ckscor3.game.hangman.Hangman;
-import bl4ckscor3.game.hangman.game.Screen;
+import bl4ckscor3.game.hangman.game.Game;
 import bl4ckscor3.game.hangman.util.Shapes;
 
 /**
@@ -38,12 +38,12 @@ public class MouseActionsListener implements MouseListener
 				case "a": case "b": case "c": case "d": case "e": case "f": case "g": case "h": case "i":
 				case "j": case "k": case "l": case "m": case "n": case "o": case "p": case "q": case "r":
 				case "s": case "t": case "u": case "v": case "w": case "x": case "y": case "z":
-					Screen s = Hangman.getGame();
+					Game g = Hangman.getGame();
 
-					if(!s.hasLost() && !s.hasWon())
+					if(!g.hasLost() && !g.hasWon())
 					{
-						if(!s.getUsedUpLetters().contains(name))
-							s.useUp(name);
+						if(!g.getUsedUpLetters().contains(name))
+							g.useUp(name);
 					}
 					
 					break;

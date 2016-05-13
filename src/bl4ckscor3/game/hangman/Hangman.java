@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import bl4ckscor3.game.hangman.game.GameThread;
-import bl4ckscor3.game.hangman.game.Screen;
+import bl4ckscor3.game.hangman.game.Game;
 
 /**
  * Main file used to set up and start the game
@@ -19,7 +19,7 @@ public class Hangman
 {
 	public static final String version = "1.0";
 	private static Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-	private static Screen game;
+	private static Game game;
 	private static final JFrame frame = new JFrame();
 	
 	public static void main(String[] args) throws IOException, URISyntaxException
@@ -39,7 +39,7 @@ public class Hangman
 		frame.setSize(size);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
-		game = new Screen(new GameThread());
+		game = new Game(new GameThread());
 		frame.add(game);
 		frame.setVisible(true);
 		game.getThread().start();
@@ -48,7 +48,7 @@ public class Hangman
 	/**
 	 * @return The Screen
 	 */
-	public static Screen getGame()
+	public static Game getGame()
 	{
 		return game;
 	}

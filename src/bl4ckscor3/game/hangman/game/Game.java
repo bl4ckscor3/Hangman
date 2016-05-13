@@ -26,7 +26,7 @@ import bl4ckscor3.game.hangman.listener.MouseActionsListener;
  * Contains the game's interface and part of the logic
  * @author bl4ckscor3
  */
-public class Screen extends JPanel
+public class Game extends JPanel
 {
 	private final int width = Hangman.getWidth(); //width of the panel
 	private final int height = Hangman.getHeight(); //height of the panel
@@ -53,7 +53,7 @@ public class Screen extends JPanel
 	/**
 	 * @param t The GameThread (loop) this game is running on
 	 */
-	public Screen(GameThread t)
+	public Game(GameThread t)
 	{
 		thread = t;
 		addMouseListener(new MouseActionsListener());
