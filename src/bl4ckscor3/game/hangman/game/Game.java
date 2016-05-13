@@ -17,10 +17,10 @@ import javax.swing.JPanel;
 import org.apache.commons.io.FileUtils;
 
 import bl4ckscor3.game.hangman.Hangman;
+import bl4ckscor3.game.hangman.listener.MouseActionsListener;
 import bl4ckscor3.game.hangman.util.Shapes;
 import bl4ckscor3.game.hangman.util.Shapes.ShapeItem;
 import bl4ckscor3.game.hangman.util.TextureManager;
-import bl4ckscor3.game.hangman.listener.MouseActionsListener;
 
 /**
  * Contains the game's interface and part of the logic
