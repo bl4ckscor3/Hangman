@@ -91,8 +91,12 @@ public class Game extends JPanel
 		//header content
 		g.drawString("FPS: " + fps, 5, 21);
 		g.setFont(fHeader);
-		if(loaded)
-		g.drawString(cheat ? currentWord : "Hangman v" + Hangman.version, width / 2 - centerTextHorizontally(cheat ? currentWord : "Hangman v" + Hangman.version, fHeader), 25);
+		
+		if(loaded && cheat)
+			g.drawString(currentWord, width / 2 - centerTextHorizontally(currentWord, fHeader), 25);
+		else
+			g.drawString("Hangman v" + Hangman.version, width / 2 - centerTextHorizontally("Hangman v" + Hangman.version, fHeader), 25);
+		
 		drawImage(g, close, width - 32, 0, 32, 32, "Close");
 		drawImage(g, reset, width - 64, 0, 32, 32, "Reset");
 		
@@ -117,6 +121,8 @@ public class Game extends JPanel
 			g.setFont(fEnd);
 			g.drawString("YOU LOST!", width / 2 - centerTextHorizontally("YOU LOST!", fEnd), height / 2);
 			g.setColor(cDef);
+			g.setFont(fHeader);
+			g.drawString("The word was: " + currentWord, width / 2 - centerTextHorizontally("The word was: " + currentWord, fHeader), height / 2 + 40);
 			g.setFont(fLetters);
 		}
 		else if(won)
