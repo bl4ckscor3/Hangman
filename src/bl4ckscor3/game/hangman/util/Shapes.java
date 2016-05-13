@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Shapes
 {
-	private final ArrayList<ShapeItem> shapes = new ArrayList<ShapeItem>();
+	private final ArrayList<ShapeItem> shapes = new ArrayList<ShapeItem>(); //contains all existing shapes
 	
 	/**
 	 * Adds a shape with a name to the list

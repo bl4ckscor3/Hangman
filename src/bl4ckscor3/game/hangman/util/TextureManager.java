@@ -5,6 +5,10 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+/**
+ * Contains useful methods for loading textures in different ways
+ * @author bl4ckscor3
+ */
 public class TextureManager
 {
 	private static final Random r = new Random();

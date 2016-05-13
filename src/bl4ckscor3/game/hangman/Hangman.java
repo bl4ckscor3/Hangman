@@ -17,9 +17,9 @@ import bl4ckscor3.game.hangman.game.Screen;
  */
 public class Hangman
 {
-	public static final String version = "0.1";
+	public static final String version = "1.0";
 	private static Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-	private static Screen screen;
+	private static Screen game;
 	private static final JFrame frame = new JFrame();
 	
 	public static void main(String[] args) throws IOException, URISyntaxException
@@ -39,18 +39,18 @@ public class Hangman
 		frame.setSize(size);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
-		screen = new Screen(new GameThread());
-		frame.add(screen);
+		game = new Screen(new GameThread());
+		frame.add(game);
 		frame.setVisible(true);
-		screen.getThread().start();
+		game.getThread().start();
 	}
 	
 	/**
 	 * @return The Screen
 	 */
-	public static Screen getScreen()
+	public static Screen getGame()
 	{
-		return screen;
+		return game;
 	}
 	
 	/**

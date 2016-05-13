@@ -40,12 +40,12 @@ public class GameThread extends Thread implements Runnable
 				e.printStackTrace();
 			}
 			
-			Hangman.getScreen().repaint();
+			Hangman.getGame().repaint();
 			fps++;
 			
 			if(System.currentTimeMillis() - fpsTimer >= 1000)
 			{
-				Hangman.getScreen().setFps(fps);
+				Hangman.getGame().setFps(fps);
 				fps = 0;
 				fpsTimer += 1000;
 			}
