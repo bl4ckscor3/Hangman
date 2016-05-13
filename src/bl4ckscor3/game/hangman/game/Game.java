@@ -112,7 +112,7 @@ public class Game extends JPanel
 		
 		for(int i = 0; i < currentWord.length(); i++)
 		{
-			g.drawString("_", width / 3 + width / 10 + i * 40, height / 3); //underscores for the word
+			g.drawString("_", width / 3 + width / 10 + i * 40, height / 3); //underscores for the word to guess
 		}
 		
 		if(lost)
