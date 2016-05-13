@@ -39,6 +39,14 @@ public class Shapes
 	}
 	
 	/**
+	 * Removes all shapes. Used when resetting the game
+	 */
+	public void clear()
+	{
+		shapes.clear();
+	}
+	
+	/**
 	 * Models a shape with a name, that can be used to determine wether it got clicked on or not
 	 * @author bl4ckscor3
 	 */

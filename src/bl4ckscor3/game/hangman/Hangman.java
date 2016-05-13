@@ -2,6 +2,8 @@ package bl4ckscor3.game.hangman;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -20,13 +22,13 @@ public class Hangman
 	private static Screen screen;
 	private static final JFrame frame = new JFrame();
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException, URISyntaxException
 	{
 		SwingUtilities.invokeLater(() -> {
 			start();
 		});
 	}
-	
+
 	/**
 	 * Sets up and starts the game
 	 */
