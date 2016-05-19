@@ -2,7 +2,9 @@ package bl4ckscor3.game.hangman.game;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.File;
@@ -35,7 +37,7 @@ public class Game extends JPanel
 	private final Shapes shapes = new Shapes(); //contains the clickable areas
 	private final ArrayList<String> usedUpLetters = new ArrayList<String>(); //contains which letters have already been clicked
 	private final Font fHeader = new Font("Calibri", 1, 30); //the font used for the header
-	private final Font fLetters = new Font("Calibri", 1, 50); //the font used for the rest of the letters
+	private Font fLetters = new Font("Hack", 1, 50); //the font used for the rest of the letters
 	private final Font fEnd = new Font("Calibri", 1, 100); //the font used for the won/lost text
 	private final Color bg = new Color(0x98AFC7); //the color of the background
 	private GameThread thread; //the game thread this game is running on
@@ -57,14 +59,15 @@ public class Game extends JPanel
 	{
 		thread = t;
 		addMouseListener(new MouseActionsListener());
-
+		
 		try
 		{
+			GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("resources/Hack.ttf")));
 			words = FileUtils.readLines(new File("resources/words.txt"));
 			currentWord = words.get(new Random().nextInt(words.size()));
 			charArray = new char[currentWord.length()];
 		}
-		catch(IOException e)
+		catch(FontFormatException | IOException e)
 		{
 			e.printStackTrace();
 			loaded = false;
@@ -82,7 +85,11 @@ public class Game extends JPanel
 		g.setColor(bg);
 		g.fillRect(0, 0, width, height);
 		g.setColor(cDef);
-		//setting font
+		//outlines
+		g.drawLine(0, 0, width, 0); //top
+		g.drawLine(width - 1, 0, width - 1, height); //right
+		g.drawLine(width - 1, height - 1, 0, height - 1); //bottom
+		g.drawLine(0, height - 1, 0, 0); //left
 		//lines as seperators of the header
 		g.drawLine(0, 32, width, 32); //horizontal line across the screen
 		g.drawLine(60, 0, 60, 32); //line right to fps
@@ -99,7 +106,8 @@ public class Game extends JPanel
 		
 		drawImage(g, close, width - 32, 0, 32, 32, "Close");
 		drawImage(g, reset, width - 64, 0, 32, 32, "Reset");
-		
+		shapes.add(new ShapeItem(new Rectangle(width - 96, 0, 32, 32), "Cheat"));
+
 		//game content
 		if(!loaded)
 		{
@@ -136,16 +144,7 @@ public class Game extends JPanel
 		
 		for(int i = 0; i < charArray.length; i++)
 		{
-			char c = charArray[i];
-			int w = width / 3 + width / 10 + i * 40;
-			
-			//used for correct spacing on the underscores
-			if(c == 'm' || c == 'w')
-				w -= 5;
-			else if(c == 'i' || c == 'l')
-				w += 5;
-			
-			g.drawString("" + charArray[i], w, height / 3); //already guessed letters
+			g.drawString("" + charArray[i], width / 3 + width / 10 + i * 40, height / 3); //already guessed letters
 		}
 		
 		g.drawImage(TextureManager.loadTextureFromPath("hangman-" + hangman, "hangman/"), width / 10, height / 10, 96 * 4, 128 * 4, null); //hangman picture
@@ -155,25 +154,13 @@ public class Game extends JPanel
 		{
 			char c = (char)(96 + i);
 
-			//used for correct spacing of the chars
-			if(c == 'g' || c == 's' || c == 't' || c == 'u')
-				add -= 5;
-			else if(c == 'j' || c == 'k')
-				add -= 10;
-			else if(c == 'm')
-				add -= 10;
-			else if(c == 'w')
-				add -= 5;
-			else if(c == 'n' || c == 'x')
-				add += 10;
-			
 			if(usedUpLetters.contains(("" + c).toLowerCase()))
-				g.setColor(bg);
+				continue;
 
-			drawString(g, "" + c, width / 4 + i * 35 + add, height - height / 6, "" + c);
+			drawStringWithRect(g, "" + c, width / 5 + i * 40 + add, height - height / 6, "" + c);
 			g.setColor(cDef);
 		}
-
+		
 		g.setFont(fDef);
 	}
 
@@ -194,19 +181,22 @@ public class Game extends JPanel
 	}
 
 	/**
-	 * Draws a String and adds it to the shapes list
+	 * Draws a String, surrounds it with a rectangle and adds it to the shapes list
 	 * @param g The Graphics to draw with
 	 * @param str The String to draw
 	 * @param x The x position of the String
 	 * @param y The y position of the String
 	 * @param name The name of the String used to determine wether it has been clicked or not
 	 */
-	private void drawString(Graphics g, String str, int x, int y, String name)
+	private void drawStringWithRect(Graphics g, String str, int x, int y, String name)
 	{
 		int fontSize = g.getFont().getSize();
-
+		Rectangle r = new Rectangle(x, y - (fontSize - fontSize / 8), g.getFontMetrics(g.getFont()).charWidth(str.charAt(0)), fontSize + fontSize / 6);
+		
 		g.drawString(str, x, y);
-		shapes.add(new ShapeItem(new Rectangle(x, y - fontSize, g.getFontMetrics(g.getFont()).charWidth(str.charAt(0)), fontSize), name));
+		g.drawRect(r.x, r.y, r.width, r.height);
+		g.drawRect(r.x - 1, r.y - 1, r.width + 2, r.height + 2); //make the rectangle bold
+		shapes.add(new ShapeItem(r, name));
 	}
 
 	/**
@@ -325,5 +315,13 @@ public class Game extends JPanel
 	public int centerTextHorizontally(String text, Font f)
 	{
 		return getFontMetrics(f).stringWidth(text) / 2;
+	}
+	
+	/**
+	 * Toggles cheat mode on or off
+	 */
+	public void toggleCheat()
+	{
+		cheat = !cheat;
 	}
 }

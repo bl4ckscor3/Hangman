@@ -37,6 +37,14 @@ public class Shapes
 		
 		return null;
 	}
+
+	/**
+	 * @return All saved shapes
+	 */
+	public ArrayList<ShapeItem> getShapes()
+	{
+		return shapes;
+	}
 	
 	/**
 	 * Removes all shapes. Used when resetting the game

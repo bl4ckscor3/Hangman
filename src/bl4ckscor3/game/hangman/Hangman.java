@@ -24,6 +24,8 @@ public class Hangman
 	
 	public static void main(String[] args) throws IOException, URISyntaxException
 	{
+//		size.width = 1280;
+//		size.height = 720;
 		SwingUtilities.invokeLater(() -> {
 			start();
 		});
