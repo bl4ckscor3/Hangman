@@ -1,6 +1,7 @@
 package bl4ckscor3.game.hangman.util;
 
 import java.awt.Image;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -12,6 +13,7 @@ import javax.swing.ImageIcon;
 public class TextureManager
 {
 	private static final Random r = new Random();
+	private static final HashMap<String,Image> loadedTextures = new HashMap<String,Image>(); //resource location, image itself
 	
 	/**
 	 * Loads a texture from the resources folder without subfolders
@@ -20,7 +22,12 @@ public class TextureManager
 	 */
 	public static Image loadTexture(String fileName)
 	{
-		return new ImageIcon("resources/" + fileName + ".png").getImage();
+		String loc = "resources/" + fileName + ".png";
+		
+		if(!loadedTextures.containsKey(loc))
+			loadedTextures.put(loc, new ImageIcon(loc).getImage());
+
+		return loadedTextures.get(loc);
 	}
 	
 	/**
@@ -31,7 +38,12 @@ public class TextureManager
 	 */
 	public static Image loadTextureFromPath(String fileName, String path)
 	{
-		return new ImageIcon("resources/" + path + fileName + ".png").getImage();
+		String loc = "resources/" + path + fileName + ".png";
+		
+		if(!loadedTextures.containsKey(loc))
+			loadedTextures.put(loc, new ImageIcon(loc).getImage());
+
+		return loadedTextures.get(loc);
 	}
 	
 	/**
@@ -42,7 +54,12 @@ public class TextureManager
 	 */
 	public static Image loadRandomTexture(String fileName, int textureAmount)
 	{
-		return new ImageIcon("resources/" + fileName + "_" + r.nextInt(textureAmount) + ".png").getImage();
+		String loc = "resources/" + fileName + "_" + r.nextInt(textureAmount) + ".png";
+		
+		if(!loadedTextures.containsKey(loc))
+			loadedTextures.put(loc, new ImageIcon(loc).getImage());
+
+		return loadedTextures.get(loc);
 	}
 	
 	/**
@@ -54,6 +71,11 @@ public class TextureManager
 	 */
 	public static Image loadRandomTextureFromPath(String fileName, String path, int textureAmount)
 	{
-		return new ImageIcon("resources/" + path + fileName + "_" + r.nextInt(textureAmount) + ".png").getImage();
+		String loc = "resources/" + path + fileName + "_" + r.nextInt(textureAmount) + ".png";
+		
+		if(!loadedTextures.containsKey(loc))
+			loadedTextures.put(loc, new ImageIcon(loc).getImage());
+
+		return loadedTextures.get(loc);
 	}
 }
